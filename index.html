@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Certificate Portfolio - Ammaar Quadri (M.A.Q.)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+  <text y='0.9em' font-size='90'>➤</text>
+</svg>">
+
+  <link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+ crossorigin="anonymous" referrerpolicy="no-referrer">
+
+
+  <style>
+    /* ---------- Reset & base ---------- */
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{background:linear-gradient(180deg,#eef6ff 0%, #f8fafc 100%);color:#111;min-height:100vh}
+    a{color:inherit}
+
+    /* ---------- Header ---------- */
+    header{padding:28px 20px;text-align:center}
+    header h1{font-size:28px;margin-bottom:6px;letter-spacing:0.2px}
+    header p{color:#475569}
+
+    /* ---------- Stats (top cards) ---------- */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;padding:18px 20px;max-width:1100px;margin:0 auto}
+    .stat{background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 20px rgba(20,20,40,0.06);text-align:center}
+    .stat h2{color:#0f172a;font-size:20px}
+    .stat p{color:#64748b;font-size:13px}
+
+    /* ---------- Centered search area ---------- */
+    .hero-search{max-width:1100px;margin:10px auto 20px;padding:18px 20px;display:flex;justify-content:center}
+    .search-wrap{width:100%;background:#fff;padding:18px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(15,23,42,0.06)}
+    .search-wrap i{color:#64748b;font-size:18px}
+    #search{flex:1;border:0;outline:0;font-size:16px;padding:8px}
+    .hint{color:#94a3b8;font-size:13px}
+
+    /* ---------- Certificates grid (3 per row on large screens) ---------- */
+    .grid{
+  max-width:1200px;      /* ⬅ wider layout */
+  margin:24px auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;              /* ⬅ more space between cards */
+}
+
+    @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:640px){ .grid{grid-template-columns:repeat(1,1fr);} }
+
+  .card{
+  background:#fff;
+  border-radius:16px;
+  padding:20px;               /* ⬅ more inner space */
+  display:flex;
+  flex-direction:column;
+  gap:16px;                   /* ⬅ more spacing */
+  box-shadow:0 16px 40px rgba(2,6,23,0.08);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 22px 50px rgba(2,6,23,0.12);
+}
+
+
+    .card-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .card-title{display:flex;align-items:center;gap:12px}
+    .thumb-small{
+  width:110px;      /* ⬅ bigger */
+  height:75px;      /* ⬅ bigger */
+  object-fit:cover;
+  border-radius:10px;
+  flex-shrink:0;
+  border:1px solid #e6eefb;
+}
+
+    .title-text{font-weight:600}
+    .issuer{font-size:13px;color:#475569}
+
+    .meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .meta .meta-item{display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:999px;background:#f8fafc;color:#0f172a;font-size:13px}
+    .meta .meta-item i{color:#0ea5a4}
+
+    .actions{display:flex;gap:8px}
+    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+    .btn.view{background:#0f172a;color:#fff}
+    .btn.ghost{background:#fff;border:1px solid #e6eefb;color:#0f172a}
+    .btn.small{padding:6px 8px;font-size:14px}
+    .btn.view{background:#0f172a;color:#fff}
+    .btn.view{
+  background:#000;
+  color:#fff;
+}
+
+
+    .views-badge{display:inline-flex;align-items:center;gap:6px;background:#f1f5f9;padding:6px 8px;border-radius:999px;font-size:13px}
+    .views-badge i{color:#475569}
+
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(rgba(2,6,23,0.55),rgba(2,6,23,0.55));z-index:80;padding:20px}
+    .modal-card{background:#fff;border-radius:12px;max-width:950px;width:100%;overflow:hidden;display:grid;grid-template-columns:1fr 360px;gap:0}
+    .modal-left{padding:18px;background:#0f172a;color:#fff;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center}
+    .modal-left img{
+  max-width:100%;
+  max-height:82vh;   /* ⬅ bigger preview */
+  object-fit:contain;
+  border-radius:12px;
+}
+
+    .modal-right{padding:18px}
+    .modal-right h3{margin-bottom:8px}
+    .modal-right p{color:#334155}
+    .close-x{position:absolute;right:18px;top:18px;background:transparent;border:0;color:#fff;font-size:20px}
+
+    @media (max-width:880px){ .modal-card{grid-template-columns:1fr} .thumb-small{width:84px;height:56px} }
+
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:26px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:10px;display:none}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Certificate Portfolio | Ammaar Quadri</h1>
+    <p>Professional showcase - download, share and track views</p>
+  </header>
+
+  <section class="stats">
+    <div class="stat">
+      <h2 id="totalCerts">0</h2>
+      <p>Total Certificates</p>
+    </div>
+    <div class="stat">
+      <h2 id="totalViews">0</h2>
+      <p>Total Views</p>
+    </div>
+    <div class="stat">
+      <h2 id="recent">0</h2>
+      <p>Recent (6 months)</p>
+    </div>
+  </section>
+
+  <section class="hero-search">
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="search" placeholder="Type an alphabet or title (prefix search) - shows certificates starting with what you type" autocomplete="off" />
+      <div class="hint">Prefix match · Case-insensitive</div>
+    </div>
+  </section>
+
+  <main class="grid" id="certificateGrid" aria-live="polite"></main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-card" role="document">
+      <div class="modal-left">
+        <img id="modalImg" alt="Certificate preview">
+      </div>
+      <div class="modal-right">
+        <button class="close-x" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+        <h3 id="modalTitle"></h3>
+        <p id="modalIssuer" style="margin-bottom:8px;color:#64748b"></p>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+          <div class="meta-item meta-item-date" style="display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#f8fafc;color:#0f172a;font-weight:600">
+            <i class="fa-regular fa-calendar-days" style="color:#fb923c"></i>
+            <span id="modalDate"></span>
+          </div>
+          <div class="views-badge" style="background:#f1f5f9">
+            <i class="fa-regular fa-eye"></i>
+            <span id="modalViewCount">0</span>
+          </div>
+        </div>
+
+        <p id="modalDesc"></p>
+
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn view" id="downloadBtn"><i class="fa-solid fa-download"></i> Download</button>
+          <button class="btn ghost" id="shareBtn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+          <button class="btn ghost" id="openFullBtn">Open Full</button>
+        </div>
+
+        <div style="margin-top:18px;color:#475569;font-size:14px">
+          <strong>Skills:</strong> <span id="modalSkills"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---------- Certificates data (44 items). Important/valuable certs placed first ----------
+    const certificates = [
+      { id: 'c01', title: 'Python for Machine Learning & Data Science', issuer: 'Udemy', date: '2025-09-15', image: 'images/Python Masterclass.jpg', description: 'Comprehensive ML and data science using Python.', skills: ['Python','Pandas','NumPy','scikit-learn','Data Cleaning','Visualization'] },
+      { id: 'c02', title: 'Generative AI Mastermind', issuer: 'Outskill', date: '2025-06-01', image: 'images/Muhammad_Ammaar_Quadri_Certificate_page-0001.jpg', description: 'Hands-on generative AI projects and prompt engineering.', skills: ['Prompt Engineering','LLMs','Diffusion Models','Evaluation'] },
+      { id: 'c03', title: 'React JS Intern', issuer: 'Internpedia', date: '2024-10-31', image: 'images/React JS Intern.jpg', description: 'Front-end development with React.js.', skills: ['React','JSX','Hooks','Component Design','Routing'] },
+      { id: 'c04', title: 'Full Stack Development Intern', issuer: 'Bharat Intern', date: '2024-06-25', image: 'images/Full Stack Intern.jpg', description: 'Full stack projects with MERN stack.', skills: ['HTML','CSS','JavaScript','Node.js','MongoDB','Express'] },
+      { id: 'c05', title: 'Web Development Intern', issuer: 'Oasis Infobyte', date: '2024-06-20', image: 'images/Web Designer Intern.jpg', description: 'Web dev foundations and real projects.', skills: ['HTML','CSS','JavaScript','Responsive Design'] },
+      { id: 'c06', title: 'Best Web Designer', issuer: 'Oasis Infobyte', date: '2024-06-20', image: 'images/Web Developer Intern.jpg', description: 'Award for outstanding UI/UX design.', skills: ['UI Design','Figma','Responsive Layouts'] },
+      { id: 'c07', title: 'Front-end Web Development Intern', issuer: 'Next24tech', date: '2024-08-20', image: 'images/Web Development.jpg', description: 'Front-end engineering and performance optimization.', skills: ['HTML','CSS','JavaScript','Performance'] },
+      { id: 'c08', title: 'Python Development Intern', issuer: 'Shadow Fox', date: '2024-09-30', image: 'images/Python Intern.jpg', description: 'Python development experience in projects.', skills: ['Python','OOP','Scripting','APIs'] },
+      { id: 'c09', title: 'Python Programming Intern', issuer: 'Codtech IT Solutions', date: '2024-04-15', image: 'images/Basic Python.png', description: 'Internship focused on Python applications.', skills: ['Python','Automation','Testing'] },
+      { id: 'c10', title: 'Advanced Python', issuer: 'LinkedIn Learning', date: '2024-12-12', image: 'images/Advanced Python.jpg', description: 'Advanced language features and best practices.', skills: ['Generators','Decorators','Concurrency','Testing'] },
+      { id: 'c11', title: 'Python for Beginners', issuer: 'OpenCV University', date: '2023-01-01', image: 'images/Python For Beginners.jpg', description: 'Introductory Python course.', skills: ['Python Basics','Variables','Control Flow'] },
+      { id: 'c12', title: 'C++ Programming Intern', issuer: 'Pinnacle Labs', date: '2024-09-18', image: 'images/PL_Intern.jpg', description: 'C++ fundamentals and system-level coding.', skills: ['C++','STL','Pointers','OOP'] },
+      { id: 'c13', title: 'Cloud Computing', issuer: 'VOIS', date: '2023-08-14', image: 'images/Cloud Computing.jpg', description: 'Cloud foundations and services.', skills: ['Cloud Concepts','VMs','Storage','Networking'] },
+      { id: 'c14', title: 'Google Ads Search Campaign', issuer: 'Coursera Project', date: '2024-05-27', image: 'images/Google Ads Search Campaign.jpg', description: 'Build and optimize search campaigns.', skills: ['PPC','Campaign Setup','Analytics'] },
+      { id: 'c15', title: 'Google Analytics Capstone', issuer: 'Google', date: '2024-05-15', image: 'images/Data Analytics Capstone.jpg', description: 'Web analytics and insights.', skills: ['GA4','Metrics','Funnels','Reporting'] },
+      { id: 'c16', title: 'Excel Basics', issuer: 'Tutorials Point', date: '2023-06-22', image: 'images/EXCEL_MAQ.jpg', description: 'Spreadsheets and formulas basics.', skills: ['Formulas','Charts','Pivot Tables'] },
+      { id: 'c17', title: 'Facebook Marketing & Advertising', issuer: 'Simplilearn', date: '2022-03-04', image: 'images/Facebook Marketing.jpg', description: 'Social media advertising fundamentals.', skills: ['Ad Creatives','Targeting','Optimization'] },
+      { id: 'c18', title: 'Agile Project Management', issuer: 'HP Life', date: '2024-10-16', image: 'images/HP_Life.jpg', description: 'Agile methodology and scrum practices.', skills: ['Scrum','Kanban','Sprint Planning'] },
+      { id: 'c19', title: 'Data Analysis With Python', issuer: 'Cognitive Class', date: '2024-05-27', image: 'images/IBM DA0101EN.jpg', description: 'Data analysis using pandas and numpy.', skills: ['Pandas','Data Cleaning','Analysis'] },
+      { id: 'c20', title: 'Create your own Chatbot with LLMs', issuer: 'Cognitive Class', date: '2024-05-27', image: 'images/IBMSkillsNetwork.jpg', description: 'Chatbot building using LLMs.', skills: ['LLMs','Prompting','APIs'] },
+      { id: 'c21', title: 'Common Internship Test', issuer: 'Internship Studio', date: '2024-07-22', image: 'images/Internship Studio.jpg', description: 'General internship readiness test.', skills: ['Problem Solving','Aptitude'] },
+      { id: 'c22', title: 'IOT', issuer: 'Pitronix Solutions', date: '2024-08-15', image: 'images/IOT.jpg', description: 'Internet of Things fundamentals.', skills: ['Sensors','Microcontrollers','MQTT'] },
+      { id: 'c23', title: 'Student Partner Program', issuer: 'Internshala', date: '2025-01-08', image: 'images/ISP.jpg', description: 'Campus outreach & partnerships.', skills: ['Communication','Leadership'] },
+      { id: 'c24', title: 'Machine Learning Intern', issuer: 'Devtern', date: '2024-07-01', image: 'images/Machine Learning Intern.jpg', description: 'ML internship with model building.', skills: ['ML','Modeling','scikit-learn'] },
+      { id: 'c25', title: 'Machine Learning for Data Science Projects', issuer: 'IBM', date: '2024-07-26', image: 'images/Machine_Learning_for_Data_Science_Projects.jpg', description: 'Applied ML projects.', skills: ['ML Pipeline','Evaluation','Deployment'] },
+      { id: 'c26', title: 'ChatGPT for Coders', issuer: 'Great Learning', date: '2024-07-01', image: 'images/Md._Ammaar_Quadr.jpg', description: 'Using ChatGPT in programming workflows.', skills: ['Prompting','Code Generation','Debugging'] },
+      { id: 'c27', title: 'HTML & CSS', issuer: 'Mind Luster', date: '2024-03-31', image: 'images/Mindluster_Certificate_.jpg', description: 'Web layout and styling.', skills: ['HTML','CSS','Responsive Design'] },
+      { id: 'c28', title: 'AI & ML Content Writing', issuer: 'Earth5R / Internshala', date: '2024-01-08', image: 'images/Hired_Certificate.jpg', description: 'Writing about AI and ML topics.', skills: ['Technical Writing','Content Strategy'] },
+      { id: 'c29', title: 'Graduate Rotational Internship Program', issuer: 'The Sparks Foundation', date: '2024-08-02', image: 'images/PFT2NATUU9.png', description: 'Rotational projects across domains.', skills: ['Data Projects','Problem Solving'] },
+      { id: 'c30', title: 'Git & GitHub for Projects', issuer: 'Physics Wallah', date: '2025-01-05', image: 'images/PW_Certificate.png', description: 'Version control best practices.', skills: ['Git','Branching','Pull Requests'] },
+      { id: 'c31', title: 'MySQL Intern', issuer: 'Verzeo', date: '2022-08-31', image: 'images/SQL Intern.jpg', description: 'Relational DB fundamentals.', skills: ['SQL','Queries','Schema Design'] },
+      { id: 'c32', title: 'Selenium Java', issuer: 'Tutorials Point', date: '2023-06-25', image: 'images/TP-HFN8MJ34.jpg', description: 'Automated testing with Selenium.', skills: ['Selenium','Java','Test Automation'] },
+      { id: 'c33', title: 'Web Development Intern', issuer: 'Oasis Infobyte', date: '2024-06-20', image: 'images/c33.jpg', description: 'Another practical web dev internship.', skills: ['HTML','CSS','JS'] },
+      { id: 'c34', title: 'What is Data Science?', issuer: 'Coursera - IBM', date: '2023-10-11', image: 'images/1_What is Data Science.jpg', description: 'Intro to data science concepts.', skills: ['Data Literacy','Intro ML'] },
+      { id: 'c35', title: 'Tools for Data Science', issuer: 'Coursera - IBM', date: '2024-04-05', image: 'images/2_Tools for Data Science.jpg', description: 'Data science toolchain overview.', skills: ['Python','SQL','Git','Jupyter'] },
+      { id: 'c36', title: 'Data Science Methodology', issuer: 'Coursera - IBM', date: '2024-05-05', image: 'images/3_Data Science Methodology.jpg', description: 'Methodology for DS projects.', skills: ['CRISP-DM','Experimentation'] },
+      { id: 'c37', title: 'Machine Learning with Python', issuer: 'Coursera - IBM', date: '2024-05-20', image: 'images/4_Machine Learning with Python.jpg', description: 'ML algorithms and practice.', skills: ['Regression','Classification','scikit-learn'] },
+      { id: 'c38', title: 'Foundation of CyberSecurity', issuer: 'Google - Coursera', date: '2024-04-20', image: 'images/Foundations of Cybersecurity.jpg', description: 'Cybersecurity basics.', skills: ['Security Fundamentals','Threats'] },
+      { id: 'c39', title: 'Generative AI for Executives & Business', issuer: 'Coursera - IBM', date: '2024-06-12', image: 'images/Generative AI for Executives and Business Leaders.jpg', description: 'Business applications of generative AI.', skills: ['Strategy','Use Cases'] },
+      { id: 'c40', title: 'Python for Data Science, AI & Development', issuer: 'Coursera - IBM', date: '2024-05-26', image: 'images/Python for Data Science, AI.jpg', description: 'Applied Python for DS and AI.', skills: ['Python','Pandas','ML Basics'] },
+      { id: 'c41', title: 'What is Metaverse?', issuer: 'Coursera - Metaverse', date: '2023-10-23', image: 'images/What is the Metaverse.jpg', description: 'Introduction to metaverse concepts.', skills: ['XR Concepts','Virtual Worlds'] },
+      // added 3 more to reach 44
+      { id: 'c42', title: '100 Days LeetCode Challenge', issuer: 'edSlash', date: '2024-05-31', image: 'images/edSlash.png', description: 'Visualizing data with Tableau.', skills: ['Tableau','Dashboards','Viz Best Practices'] },
+      { id: 'c43', title: 'Java Development Intern', issuer: 'Code Clause', date: '2024-09-15', image: 'images/1725249621150.jfif', description: 'Containerization fundamentals.', skills: ['Docker','Containers','Images'] },
+      { id: 'c44', title: 'Responsive Web Design', issuer: 'freeCodeCamp', date: '2025-07-15', image: 'images/1752584844573.jfif', description: 'Capstone showcasing multiple projects.', skills: ['Full Stack','ML','Deployment'] }
+    ];
+
+    // DOM refs
+    const grid = document.getElementById('certificateGrid');
+    const search = document.getElementById('search');
+    const totalCertsEl = document.getElementById('totalCerts');
+    const totalViewsEl = document.getElementById('totalViews');
+    const recentEl = document.getElementById('recent');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalIssuer = document.getElementById('modalIssuer');
+    const modalDate = document.getElementById('modalDate');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalSkills = document.getElementById('modalSkills');
+    const modalViewCount = document.getElementById('modalViewCount');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const shareBtn = document.getElementById('shareBtn');
+    const openFullBtn = document.getElementById('openFullBtn');
+    const closeModalBtn = document.getElementById('closeModal');
+    const toast = document.getElementById('toast');
+
+    // Persistent views stored as object { certId: count }
+    const STORAGE_KEY = 'certViews_v1';
+   function loadViews() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (!stored) return {};
+  try {
+    return JSON.parse(stored);
+  } catch {
+    return {};
+  }
+}
+
+let certViews = loadViews();
+
+/* Initialize missing certificates ONLY ONCE */
+let changed = false;
+certificates.forEach(c => {
+  if (certViews[c.id] === undefined) {
+    certViews[c.id] = 0;
+    changed = true;
+  }
+});
+
+/* Save only if new certs were added */
+if (changed) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(certViews));
+}
+
+
+    // Ensure every certificate has a defined view count (default 0 for display)
+    certificates.forEach(c => { if(!(c.id in certViews)) certViews[c.id] = 0; });
+
+    function getTotalViews(){ return Object.values(certViews).reduce((s,n)=>s+(Number(n)||0),0); }
+
+    function updateStats(){
+      totalCertsEl.innerText = certificates.length;
+      totalViewsEl.innerText = getTotalViews();
+
+      const sixMonths = new Date(); sixMonths.setMonth(sixMonths.getMonth()-6);
+      const recentCount = certificates.filter(c => {
+        const d = new Date(c.date);
+        return !isNaN(d) && d >= sixMonths;
+      }).length;
+      recentEl.innerText = recentCount;
+    }
+
+    // Render list (prefix search)
+    function render(list) {
+      grid.innerHTML = '';
+      if(!list.length){ grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#64748b;padding:30px;background:#fff;border-radius:10px">No certificates match your search.</p>'; return; }
+
+      list.forEach((c) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-head">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div>
+                <div class="title-text">${escapeHtml(c.title)}</div>
+                <div class="issuer">${escapeHtml(c.issuer)}</div>
+              </div>
+            </div>
+            <img loading="lazy" class="thumb-small" src="${escapeAttr(c.image)}" alt="${escapeAttr(c.title)} thumbnail">
+          </div>
+
+          <div class="meta">
+            <div class="meta-item">
+              <i class="fa-regular fa-calendar-days"></i>
+              <span>${escapeHtml(formatDate(c.date))}</span>
+            </div>
+            <div class="views-badge" data-certid="${c.id}">
+              <i class="fa-regular fa-eye"></i>
+              <span class="count">${Number(certViews[c.id]||0)}</span>
+            </div>
+            <div style="margin-left:auto" class="actions">
+              <button class="btn small ghost" data-action="view" data-id="${c.id}"><i class="fa-solid fa-eye"></i> View</button>
+              <button class="btn small ghost" data-action="download" data-id="${c.id}"><i class="fa-solid fa-download"></i></button>
+              <button class="btn small ghost" data-action="share" data-id="${c.id}"><i class="fa-solid fa-share-nodes"></i></button>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Utilities
+    function escapeHtml(s){ if(!s && s !== 0) return ''; return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[c]); }
+    function escapeAttr(s){ return escapeHtml(s).replace(/\"/g,'\&quot;'); }
+    function formatDate(d){ const dt = new Date(d); if(isNaN(dt)) return d||''; return dt.toLocaleDateString(); }
+
+    // Event delegation for card actions
+    grid.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if(!btn) return;
+      const action = btn.getAttribute('data-action');
+      const id = btn.getAttribute('data-id');
+      if(action === 'view') handleView(id);
+      if(action === 'download') downloadById(id);
+      if(action === 'share') shareById(id);
+    });
+
+    // When user clicks view: increment count first, save, update UI, then open modal
+function handleView(id){
+  certViews[id] = (certViews[id] || 0) + 1;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(certViews));
+
+  updateStats();
+
+  const badge = document.querySelector(
+    `.views-badge[data-certid="${id}"] .count`
+  );
+  if (badge) badge.innerText = certViews[id];
+
+  openModalById(id);
+}
+
+
+    // Open modal by cert id
+    let currentOpenId = null;
+    function openModalById(id){
+      const c = certificates.find(x=>x.id===id);
+      if(!c) return showToast('Certificate not found');
+
+      currentOpenId = id;
+      modalImg.src = c.image;
+      modalTitle.innerText = c.title;
+      modalIssuer.innerText = c.issuer;
+      modalDate.innerText = formatDate(c.date);
+      modalDesc.innerText = c.description || '';
+      modalSkills.innerText = (c.skills||[]).join(', ');
+      modalViewCount.innerText = certViews[c.id] || 0;
+
+      modal.style.display = 'flex';
+    }
+
+    // Download (attempt fetch -> blob). Note: local filesystem may block fetch; serve via http server for downloads.
+function downloadById(id){
+  const c = certificates.find(x=>x.id===id);
+  if(!c) return showToast('Certificate not found');
+
+  const a = document.createElement('a');
+  a.href = c.image;
+  a.download = (c.title || 'certificate').replace(/[^a-z0-9]/gi,'_') + '.jpg';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  showToast('Download started');
+}
+
+
+    // Share via Web Share API or copy link fallback
+    async function shareById(id){
+      const c = certificates.find(x=>x.id===id);
+      if(!c) return showToast('Certificate not found');
+      const shareUrl = 'https://certificates-portfolio-ammaarquadri.vercel.app#' + id;
+
+      try{
+        if(navigator.share){
+          await navigator.share({ title: c.title, text: c.description, url: shareUrl });
+        } else if(navigator.clipboard){
+          await navigator.clipboard.writeText(shareUrl);
+          showToast('Link copied to clipboard');
+        } else showToast('Share not supported — link copied');
+      }catch(e){ console.error(e); showToast('Share cancelled or failed'); }
+    }
+
+    function syncViewBadges() {
+  document.querySelectorAll('.views-badge').forEach(badge => {
+    const id = badge.getAttribute('data-certid');
+    const span = badge.querySelector('.count');
+    if (span && certViews[id] !== undefined) {
+      span.innerText = certViews[id];
+    }
+  });
+}
+
+    function openFullById(id){ const c = certificates.find(x=>x.id===id); if(!c) return showToast('Certificate not found'); window.open(c.image, '_blank'); }
+
+    // Toast helper
+    let toastTimer = null;
+    function showToast(msg, time=2000){ toast.innerText = msg; toast.style.display = 'block'; clearTimeout(toastTimer); toastTimer = setTimeout(()=>{ toast.style.display = 'none'; }, time); }
+
+    // Modal close handlers
+    closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+    modal.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') modal.style.display = 'none'; });
+
+    downloadBtn.addEventListener('click', () => { if(currentOpenId) downloadById(currentOpenId); });
+    shareBtn.addEventListener('click', () => { if(currentOpenId) shareById(currentOpenId); });
+    openFullBtn.addEventListener('click', () => { if(currentOpenId) openFullById(currentOpenId); });
+
+    // Search live
+    search.addEventListener('input', (e) => { const q = e.target.value; const results = performSearch(q); render(results); });
+
+    // Prefix search (case-insensitive). Matches start of title.
+    function performSearch(q){ q = (q||'').trim().toLowerCase(); if(!q) return certificates.slice(); return certificates.filter(c => c.title.toLowerCase().startsWith(q)); }
+
+    // Initialize
+    (function init(){
+      // Ensure certificates count and initial render
+      render(certificates);
+      updateStats();
+
+      // If URL hash provided, open that certificate (and increment view to reflect external share)
+      const hid = location.hash ? location.hash.slice(1) : null;
+      if(hid && certificates.some(c=>c.id===hid)){
+        // increment once for the share click
+        certViews[hid] = (Number(certViews[hid]||0) + 1);
+        saveViews(certViews);
+        // update badge UI
+        const badge = document.querySelector(`.views-badge[data-certid="${hid}"] .count`);
+        if(badge) badge.innerText = certViews[hid];
+        updateStats();
+        setTimeout(()=> openModalById(hid), 300);
+      }
+    })();
+
+  </script>
+</body>
+</html>
